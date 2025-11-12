@@ -1,0 +1,19 @@
+{% extends 'products/master.html' %}
+
+{% block content %}
+    <h1 class="text-info text-center">Add Products</h1>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form method="post" action="{% url 'create-products-url' %}">
+                <input name="p-name" required class="form-control" placeholder="Product name" type="text"> <br><br>
+                <input name="p-qtty" required class="form-control" placeholder="Product quantity" type="text"> <br><br>
+                <input name="p-size" required class="form-control" placeholder="Product size" type="text"> <br><br>
+                <input name="p-price" required class="form-control" placeholder="Product price" type="text"><br><br>
+                <input class="btn btn-info" value="Save" type="submit">
+                {% csrf_token %}
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+{% endblock %}

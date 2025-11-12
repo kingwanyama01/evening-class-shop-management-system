@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Coding School</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+    <a href="{% url 'home-url' %}"><button class="btn btn-primary">HOME</button></a>
+    <a href="{% url 'about-url' %}"><button class="btn btn-success">ABOUT</button></a>
+    <a href="{% url 'gallery-url' %}"><button class="btn btn-secondary">GALLERY</button></a>
+    <a href="{% url 'register-url' %}"><button class="btn btn-danger">REGISTER</button></a>
+    <a href="{% url 'login-url' %}"><button class="btn btn-warning">LOGIN</button></a>
+    <a href="{% url 'all-products-url' %}"><button class="btn btn-info">PRODUCTS</button></a>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>
