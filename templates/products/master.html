@@ -12,6 +12,12 @@
     <a href="{% url 'create-products-url' %}"><button class="btn btn-secondary">Add products</button></a>
     <a href="{% url 'all-products-url' %}"><button class="btn btn-success">View products</button></a>
     <hr>
+    {% if messages %}
+        {% for message in messages%}
+            <p class="text-center text-success">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
     {% block content %}{% endblock %}
 </body>
 </html>
