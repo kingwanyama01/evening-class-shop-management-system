@@ -1,5 +1,19 @@
 {% extends 'products/master.html' %}
 
 {% block content %}
-    <h1>editing a product</h1>
+    <h1 class="text-info text-center">Editing {{product.name}}</h1>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form method="post" action="{% url 'update-products-url' product.id %}">
+                <input value="{{ product.name }}" name="p-name" required class="form-control" placeholder="Product name" type="text"> <br><br>
+                <input value="{{ product.quantity }}" name="p-qtty" required class="form-control" placeholder="Product quantity" type="text"> <br><br>
+                <input value="{{ product.size }}" name="p-size" required class="form-control" placeholder="Product size" type="text"> <br><br>
+                <input value="{{ product.price }}" name="p-price" required class="form-control" placeholder="Product price" type="text"><br><br>
+                <input class="btn btn-info" value="Update" type="submit">
+                {% csrf_token %}
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
 {% endblock %}

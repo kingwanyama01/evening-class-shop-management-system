@@ -3,7 +3,8 @@ from django.contrib import messages
 from .models import Product
 
 def all_products(request):
-    return render(request, 'products/index.html')
+    products = Product.objects.all()
+    return render(request, 'products/index.html', {"products": products})
 
 def create(request):
     # Check if the request method is POST
@@ -26,8 +27,33 @@ def create(request):
 def details(request):
     return render(request,'products/details.html')
 
-def update(request):
-    return render(request, 'products/edit.html')
+def update(request, product_id):
+    product = Product.objects.get(id=product_id)
+    if request.method == "POST":
+        # Receive updated data from the frontend
+        updated_product_name = request.POST.get("p-name")
+        updated_product_quantity = request.POST.get("p-qtty")
+        updated_product_size = request.POST.get("p-size")
+        updated_product_price = request.POST.get("p-price")
+        
+        # Update the db data with the newly edited values
+        product.name = updated_product_name
+        product.quantity = updated_product_quantity
+        product.size = updated_product_size
+        product.price = updated_product_price
+        
+        # Return the updated data back to the database
+        product.save()
+        messages.success(request, "Product updated successfully!")
+        return redirect("all-products-url")
+    return render(request, 'products/edit.html', {"product": product})
 
-def payment(request):
-    return render(request, 'products/payment.html')
+def payment(request, product_id):
+    product = Product.objects.get(id=product_id)
+    return render(request, 'products/payment.html', {"product": product})
+
+def delete_product(request, product_id):
+    product = Product.objects.get(id=product_id)
+    product.delete()
+    messages.success(request,"Product deleted successfully!")
+    return redirect("all-products-url")
