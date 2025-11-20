@@ -9,7 +9,7 @@
                 <label class="text-info" for="">Amount:</label>
                 <input required class="form-control" name="amount" value="{{ product.price }}" type="text"> <br><br>
                 <label class="text-info" for="">Phone number:</label>
-                <input required class="form-control" placeholder="Enter phone number (2547...)" type="text"> <br>
+                <input name="phone-number" required class="form-control" placeholder="Enter phone number (2547...)" type="text"> <br>
                 <input class="btn btn-info" value="Pay" type="submit">
                 {% csrf_token %}
             </form>

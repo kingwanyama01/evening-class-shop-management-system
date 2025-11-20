@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Product
 
+from .mpesa.core import MpesaClient
+
+client = MpesaClient()
+stk_push_callback_url = "https://api.darajambili.com/express-payment"
+b2c_callback_url = "https://api.darajambili.com/b2c/result"
+
 def all_products(request):
     products = Product.objects.all()
     return render(request, 'products/index.html', {"products": products})
@@ -50,6 +56,13 @@ def update(request, product_id):
 
 def payment(request, product_id):
     product = Product.objects.get(id=product_id)
+    if request.method == "POST":
+        amount = request.POST.get('amount')
+        phone_number = request.POST.get('phone-number')
+        amount = int(amount)
+        account_ref = "PAYMENT_001"
+        transaction_desc = "Product payment"
+        client.stk_push(phone_number, amount, account_ref, transaction_desc, stk_push_callback_url)
     return render(request, 'products/payment.html', {"product": product})
 
 def delete_product(request, product_id):
